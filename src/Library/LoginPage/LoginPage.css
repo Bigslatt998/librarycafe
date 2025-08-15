@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+.NewBookImages{
+    height: 400px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.browesbook{
+  font-family: "MedievalSharp", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-style: italic;
+  text-transform: uppercase;
+}
+.MiddleContainer{
+    position: relative;
+}
+.MiddleImge{
+    height: clamp(250px, 20vw, 300px);
+    width: clamp(150px, 40vw, 200px);
+    object-fit: cover;
+    border-radius: 15px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.NewBookText{
+    position: absolute;
+    gap: 10px;
+    place-self: center;
+    bottom: 10px;
+    display: none;
+    cursor: pointer;
+}
+.MiddleContainer:hover .NewBookText{
+    display: flex;
+}
+.NewBookText i{
+  color: rgb(219, 180, 80); 
+}
+.leftImage{
+    height: clamp(180px, 20vw, 230px);
+    width: clamp(100px, 20vw, 150px);
+    object-fit: cover;
+    border-radius: 15px;
+    transform: translate(80px);
+    z-index: 1;
+    filter: blur(3px) saturate(1);
+}
+
+.left2Image{
+   height: clamp(130px, 20vw, 160px);
+    width: clamp(100px, 20vw, 150px);
+    object-fit: cover;
+    border-radius: 15px;
+    transform: translate(80px);
+    z-index: 1;
+    filter: blur(3px) saturate(1);
+    
+}
+
+.rightImage{
+    /* height: 230px; */
+    height: clamp(180px, 20vw, 230px);
+    width: clamp(100px, 20vw, 150px);
+    /* width: 150px; */
+    object-fit: cover;
+    border-radius: 15px;
+    transform: translate(-40px);
+    z-index: 2;
+    filter: blur(3px) saturate(1);
+    
+}
+
+.right2Image{
+    height: clamp(130px, 20vw, 160px);
+    width: clamp(100px, 20vw, 150px);
+    object-fit: cover;
+    border-radius: 15px;
+    transform: translate(-80px);
+    z-index: 1;
+    filter: blur(3px) saturate(1);
+    
+}
+.newsButton{
+  display: flex;
+    gap: 10px;
+}
+.newsButton button {
+  align-items: center;
+  appearance: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,rgb(219, 180, 80) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 38px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+  background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+  background-position: 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+   white-space: nowrap;
+  font-family: "Poppins", sans-serif;
+}
+
+
+@-moz-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@-webkit-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@-o-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+
+
+.newsButton button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+
+.newsButton button:active {
+  /* box-shadow: #D6D6E7 0 3px 7px inset; */
+  transform: translateY(2px);
+}
+
+
+.WelcomBack{
+  padding-top: 20px;
+  /* padding-bottom: 20px; */
+}
+.SectionHead{
+  padding-bottom: 20px;
+  font-size: clamp(1.1rem, 5vw, 1.7rem)
+}

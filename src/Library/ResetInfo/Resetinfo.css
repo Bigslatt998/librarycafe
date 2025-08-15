@@ -1,0 +1,157 @@
+.ResetPage{
+ width: 100%;
+    height: 85vh;  
+ place-self: center;
+ position: relative;
+}
+.ResetPage::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    background: url('../../assets/Library7.jpeg');
+    opacity: 0.2
+}
+.ResetNav{
+ display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    left:0;
+    top: 0;
+    z-index: 99;
+    background: #2424244b;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    /* filter: blur(1px); */
+    height: 80px;
+}
+.ResetNav img{
+    width: 100px;
+}
+.ResetContent{
+    padding-top: 60px;
+    place-self: center;
+    text-align: center;
+}
+.ResetContent input{
+    width: 300px;
+    height: 40px;
+}
+
+.Reseeeeet{
+  font-family: "MedievalSharp", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.ResetPage button {
+  align-items: center;
+  appearance: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,rgb(219, 180, 80) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+  background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+  background-position: 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+   white-space: nowrap;
+  font-family: "Poppins", sans-serif;
+}
+
+@-moz-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@-webkit-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@-o-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+
+
+
+.ResetPage button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.ResetPage button:active {
+  /* box-shadow: #D6D6E7 0 3px 7px inset; */
+  transform: translateY(2px);
+}
+
+.ResetPage input{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-bottom: .1px dashed #535353;
+    background-color: transparent;
+}

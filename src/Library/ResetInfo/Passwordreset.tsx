@@ -1,0 +1,126 @@
+// import './Passwordinfo.css'
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Librarycafe from '../../assets/Librarycafe.png'
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+// import { faBars } from '@fortawesome/free-solid-svg-icons'
+import {  useState } from 'react'
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import Bookloading from '../../Loader/Bookloading';
+
+const Passwordinfo = () => {
+  const [step, setStep] = useState<1 | 2 | 3 >(1)
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  // const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const requestCode = async () => {
+        setLoading(true);
+      try {
+        const res = await axios.post("http://localhost:3000/forgot-password", { email });
+        alert(res.data.message + " Code: " + res.data.code); // remove in production
+        console.log(res.data.code)
+        localStorage.setItem("resetEmail", email);
+        setStep(2);
+      } catch (err: any) {
+          console.error(err.response?.data || err.message);
+          alert(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    const handleVerifyCode = async () => {
+      setLoading(true)
+    try {
+      const res = await axios.post("http://localhost:3000/verify-code", { email, code });
+      alert(res.data.message);
+      setStep(3);
+    } catch (err: any) {
+      alert(err.response?.data?.message || err.message);
+    }
+    finally {
+        setLoading(false);
+      }
+  };
+    
+  const handleResetPaaword = async () => {
+    const email = localStorage.getItem("resetEmail");
+    setLoading(true)
+      try {
+        const res = await axios.post("http://localhost:3000/reset-password", {
+          email,
+          newPassword,
+        });
+        alert(res.data.message)
+        setMessage(res.data.message);
+      } catch (err: any) {
+        alert(err.response?.data?.message || err.message);
+      }
+      finally {
+        setLoading(false);
+      }
+    };
+
+  return (
+    <div className="PasswordinfoContainer">
+        <div className="ResetPage">
+        <div className="ResetNav">
+          <nav>
+            <div className="logo" >
+              <img src={Librarycafe}/>
+            </div>
+          </nav>    
+            <p className='Reseeeeet'>Reset password</p>
+            <p></p>
+          </div>
+
+          <div className="ResetContent">
+            {step === 1 && (
+              <>
+                <p>Enter email</p>
+                <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+          <button onClick={requestCode} disabled={loading}>{loading ? "Sending..." : "Send Code"}</button>
+              </>
+            )}
+
+            {step === 2 && (
+              <>
+                <p>Enter verification code</p>
+                <input type='text' placeholder='Enter code' value={code} onChange={(e) => setCode(e.target.value)} />
+                <button onClick={handleVerifyCode}>Verify code</button>
+              </>
+            )}
+
+            {step === 3 && (
+              <>
+                <p>New password</p>
+                <input type='text' placeholder='New password' value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required/>
+                
+              <>
+              </>
+                <p>Confirm Password</p>
+                {/* <input type='text' placeholder='New username' value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                required/> */}
+                <button onClick={handleResetPaaword}>Reset</button>
+              </>
+              
+            )}
+            
+          </div>
+          </div>
+                        {loading &&(
+                        <Bookloading/>
+                        )}
+    </div>
+  )
+}
+
+export default Passwordinfo
