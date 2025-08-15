@@ -8,7 +8,6 @@ import WeatherSection from '../../Library/WeatherSection/WeatherSection.tsx'
 import DailyNews from '../DailyNews/DailyNews.tsx'
 import axios from "axios";
 import { useSearch } from '../../Library/SearchBooks/SearchConfig.tsx'
-import Bookloading from '../../Loader/Bookloading';
 const getIndex = (current: number, offset: number, length: number) => {
   return (current + offset + length) % length
 }

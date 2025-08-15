@@ -1,11 +1,5 @@
-// import './Passwordinfo.css'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Librarycafe from '../../assets/Librarycafe.png'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-// import { faBars } from '@fortawesome/free-solid-svg-icons'
 import {  useState } from 'react'
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Bookloading from '../../Loader/Bookloading';
 
@@ -14,21 +8,17 @@ const Passwordinfo = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const requestCode = async () => {
         setLoading(true);
       try {
         const res = await axios.post("http://localhost:3000/forgot-password", { email });
-        alert(res.data.message + " Code: " + res.data.code); // remove in production
         console.log(res.data.code)
         localStorage.setItem("resetEmail", email);
         setStep(2);
-      } catch (err: any) {
-          console.error(err.response?.data || err.message);
-          alert(err.response?.data?.message || err.message);
+      } catch{
+          console.error('Failed');
       } finally {
         setLoading(false);
       }
@@ -38,10 +28,10 @@ const Passwordinfo = () => {
       setLoading(true)
     try {
       const res = await axios.post("http://localhost:3000/verify-code", { email, code });
-      alert(res.data.message);
+      console.log(res.data.message);
       setStep(3);
-    } catch (err: any) {
-      alert(err.response?.data?.message || err.message);
+    } catch (err) {
+      console.log(err)
     }
     finally {
         setLoading(false);
@@ -52,14 +42,12 @@ const Passwordinfo = () => {
     const email = localStorage.getItem("resetEmail");
     setLoading(true)
       try {
-        const res = await axios.post("http://localhost:3000/reset-password", {
+        await axios.post("http://localhost:3000/reset-password", {
           email,
           newPassword,
         });
-        alert(res.data.message)
-        setMessage(res.data.message);
-      } catch (err: any) {
-        alert(err.response?.data?.message || err.message);
+      } catch (err) {
+        console.log(err)
       }
       finally {
         setLoading(false);
@@ -106,9 +94,7 @@ const Passwordinfo = () => {
               <>
               </>
                 <p>Confirm Password</p>
-                {/* <input type='text' placeholder='New username' value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                required/> */}
+               
                 <button onClick={handleResetPaaword}>Reset</button>
               </>
               

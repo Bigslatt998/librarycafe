@@ -69,8 +69,8 @@ const WeatherSection = () => {
         })
         const results = await Promise.all(promises)
         setWeatherList(results)
-      } catch (err: any) {
-        setError(err.message || 'Failed to fetch weather data')
+      } catch(err) {
+        console.log(err)
       }
       finally{
         setLoading(false)

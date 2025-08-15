@@ -25,14 +25,6 @@ interface iRegisterInfo {
   ConfirmPassword: string;
 }
 
-// interface iLoginInfo {
-//   Username: string;
-//   Password: string;
-// }
-// const loginSchma = yup.object().shape({
-//   Username: yup.string().required();
-
-// })
 const registerSchema = yup.object().shape({
   Firstname: yup.string().required('First name is required'),
   Lastname: yup.string().required('Last name is required'),
@@ -66,7 +58,6 @@ const RegisterPage = () => {
     const [verificationCode, setVerificationCode] = useState('');
     const [sentCode, setSentCode] = useState('');
     const [codeSent, setCodeSent] = useState<boolean>(false);
-    const [ codeError, setCodeError] = useState('');
     const [resendDisable, setResendDisabe] = useState<boolean>(false);
     const [resendCountDown, setResendCountDown] = useState<number>(0);
     const navigate = useNavigate();
@@ -281,7 +272,6 @@ const handleButtonClick = () => {
 }
 const resendCode = async () => {
   if(resendDisable) return; 
-  setCodeError('');
   await handleCode();
   toast.success('Code resent to your email!', {
         position: "top-right",

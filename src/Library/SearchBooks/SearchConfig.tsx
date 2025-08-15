@@ -69,13 +69,11 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 600)
   const containerRef = useRef<HTMLDivElement>(null)
 const [loading, setLoading] = useState<boolean>(false)
-const [error, setError] = useState<string | null>(null)
 const [isPreviewOpened, setIspreviewOpened] = useState<boolean>(false)
 
 
 const fetchBooks = async () => {
      setLoading(true)
-  setError(null)
   try{
    let url = `https://gutendex.com/books?search=${searchTerm}&page=${page}&page_size=${isMobile ? 13 : 26}`
    if (filterType !== 'Filter' && filterValue) {
@@ -89,7 +87,7 @@ const fetchBooks = async () => {
     setBooks(data.results)
     console.log( 'Fetched Books:', data.results)
   } catch (err) {
-    setError(err instanceof Error ? err.message : 'Failed to fetch books')
+    console.log(err instanceof Error ? err.message : 'Failed to fetch books')
     setBooks([])
   } finally {
     setLoading(false)
@@ -251,10 +249,9 @@ useEffect(() => {
             theme: "dark",
       });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error adding bookmark:", error);
-    const msg = error?.response?.data?.error || "Failed to add bookmark";
-    toast.error(msg, { 
+    toast.error('Failed to add bookmark', { 
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

@@ -4,7 +4,6 @@ import Librarycafe from '../../assets/Librarycafe.png'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 // import { faBars } from '@fortawesome/free-solid-svg-icons'
 import {  useState } from 'react'
-import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Bookloading from '../../Loader/Bookloading';
@@ -14,7 +13,6 @@ const Resetinfo = () => {
  const [email, setEmail] = useState("");
   const [code, setCode] = useState<string>("");
   const [newUsername, setNewUsername] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   // const navigate = useNavigate();
 
@@ -22,13 +20,11 @@ const requestCode = async () => {
       setLoading(true);
     try {
       const res = await axios.post("http://localhost:3000/forgot-password", { email });
-      alert(res.data.message + " Code: " + res.data.code); // remove in production
       console.log(res.data.code)
       localStorage.setItem("resetEmail", email);
       setStep(2);
-    } catch (err: any) {
-        console.error(err.response?.data || err.message);
-        alert(err.response?.data?.message || err.message);
+    } catch (err) {
+        console.error(err);
     } finally {
       setLoading(false);
     }
@@ -40,8 +36,8 @@ const requestCode = async () => {
     const res = await axios.post("http://localhost:3000/verify-code", { email, code });
     alert(res.data.message);
     setStep(3);
-  } catch (err: any) {
-    alert(err.response?.data?.message || err.message);
+  } catch (err) {
+    console.log(err);
   } finally{
     setLoading(false)
   }
@@ -55,10 +51,9 @@ const handleResetUsername = async () => {
         email,
         newUsername,
       });
-      alert(res.data.message)
-      setMessage(res.data.message);
-    } catch (err: any) {
-      alert(err.response?.data?.message || err.message);
+      console.log(res.data.message)
+    } catch (err) {
+      console.log(err);
     }
     finally {
     setLoading(false);
