@@ -8,4 +8,11 @@ export default defineConfig({
     host: true,
     
   },
+  build: {
+    rollupOptions: {
+      external: ['emailjs-com']
+    }
+  },
+  base: '/',
+
 })
