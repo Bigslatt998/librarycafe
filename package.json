@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite & node server.js",
-    "predeploy": "npm run dist",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "tsc -b && vite dist",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.js"
