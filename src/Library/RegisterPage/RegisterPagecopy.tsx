@@ -186,7 +186,16 @@ const handleButtonClick = () => {
 
     if (res.data?.success) {
       localStorage.setItem("token", res.data.data.token);
-      toast.success('Login successful!', { theme: "dark" });
+      toast.success('Login successful!', { 
+         position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+       });
       navigate('/Homepage')
     }
   } catch (error: unknown) {
@@ -331,8 +340,8 @@ const resendCode = async () => {
                 </div>
 
                   <div className="forget">
-                    <p>Forget your  <a href='/username-reset-page'>Username?</a></p>
-                    <p>Forget your <a href='/password-reset-page'>Password?</a></p>
+                    <p>Forget your  <a href='/librarycafe/username-reset-page'>Username?</a></p>
+                    <p>Forget your <a href='/librarycafe/password-reset-page'>Password?</a></p>
                   </div>
                 <button onClick={handleLogin} >Login</button>
                   </form>
