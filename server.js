@@ -11,6 +11,8 @@ import BookmarkRoute from './src/routes/Bookmark.js';
 import UserRoute from './src/routes/UserAuth.js';
 import User from './src/Schema/RegistrationSchema.js'
 import VerificationCode from './src/Schema/VSchema.js'
+import path from 'path';
+import { fileURLToPath } from 'url';
 // import Person from './src/Schema/RegistrationSchema.js';
 import jwt from "jsonwebtoken";
 import mongoose from 'mongoose';
@@ -20,6 +22,12 @@ await connectDB()
 const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 app.use(cors({
     origin: ['http://localhost:5173',
       'https://bigslatt998.github.io',
