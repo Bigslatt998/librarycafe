@@ -100,23 +100,4 @@ router.post('/', async (req, res, next) => {
 })
 
 
-router.delete('/:id', (req, res) => {
-    const { id } = req.params
-    Users = Users.filter((p) => p.id === id)
-    res.send(`User with id: ${id} has been deleted`)
-})
-
-router.patch('/:id', (req, res) => {
-    const { id } = req.params
-    const { Firstname, Lastname, Username, Email, Password } = req.body
-    const UserPatch = Users.find((p) => p.id === id)
-    if(Firstname) UserPatch.Firstname = Firstname
-    if(Lastname) UserPatch.Lastname = Lastname
-    if(Username) UserPatch.Username = Username
-    if(Email) UserPatch.Email = Email
-    if(Password) UserPatch.Password = Password
-    res.send(`User with id: ${id} has been updated`)
-  
-})
-
 export default router;

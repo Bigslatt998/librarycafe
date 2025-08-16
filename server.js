@@ -1,7 +1,6 @@
 import express from 'express';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
-// const cors = require('cors');
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import cors from 'cors';
@@ -13,7 +12,6 @@ import User from './src/Schema/RegistrationSchema.js'
 import VerificationCode from './src/Schema/VSchema.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import Person from './src/Schema/RegistrationSchema.js';
 import jwt from "jsonwebtoken";
 import mongoose from 'mongoose';
 import {connectDB} from './src/config/db.js'
@@ -24,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(cors({
     origin: ['http://localhost:5173',
@@ -213,7 +211,7 @@ app.post("/reset-password", async (req, res) => {
   }
 });
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 app.listen(PORT, () => {
     let time = Date.now()
