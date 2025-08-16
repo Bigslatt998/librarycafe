@@ -4,13 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import auth from '../Auth/Auth.js'
 import Bookmark from '../Schema/BookmarkScheme.js'
 let bookmarks = []
-router.get('/:id', (req, res) => {
-  const { id } = req.params
-  const Bookmarkid = bookmarks.find((p) => p.id === id)
-  res.send(Bookmarkid)
-  console.log(JSON.stringify(Bookmarkid))
 
-})
 
 // Get current user's bookmarks
 router.get("/", auth, async (req, res) => {
@@ -23,6 +17,14 @@ router.get("/", auth, async (req, res) => {
     return res.status(500).json({ success: false, error: "Internal server error" });
   }
 });
+
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+  const Bookmarkid = bookmarks.find((p) => p.id === id)
+  res.send(Bookmarkid)
+  console.log(JSON.stringify(Bookmarkid))
+
+})
 
 router.post("/", auth, async (req, res) => {
   try {

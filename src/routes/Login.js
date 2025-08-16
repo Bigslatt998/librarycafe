@@ -6,13 +6,6 @@ import jwt from 'jsonwebtoken';
 router.get('/', async (req, res) => {
     res.json({ message: 'Login route is working' })
 })
-// router.post('/', async (req, res) => {
-//     const { username, password } = req.body
-//     if (!username || !password) {
-//         return res.status(400).json({ error: 'Username and password are required' })
-//     }
-//     res.json({ message: 'Login successful', user: { username } })
-// })
 
 router.post('/', async (req, res, next) => {
   try {

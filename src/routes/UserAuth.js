@@ -5,9 +5,7 @@ import User from '../Schema/RegistrationSchema.js'
 
 
 const router = express.Router();
-// router.get('/okk', (req, res) => {
-//   res.send('Czar')
-// })
+
 router.get("/me", async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];

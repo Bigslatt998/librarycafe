@@ -15,76 +15,14 @@ router.get('/', async (req, res) => {
       res.json(Users)
 
 })
-// router.post('/', async (req, res) => {
-//     try {
-        // const Userid = uuidv4();
-        // const { Firstname, Lastname, Username, Email, Password, ConfirmPassword } = req.body;
-        // const TTime = new Date().toLocaleString();
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+  const User = Users.find((p) => p.id === id)
+  res.send(User)
+  console.log(JSON.stringify(User))
+  
+})
 
-        // // Validation
-        // if (!Firstname || !Lastname || !Username || !Email || !Password || !ConfirmPassword) {
-        //     return res.status(400).send('All fields are required');
-        // }
-
-        // if (Password !== ConfirmPassword) {
-        //     return res.status(400).json({ success: false, error: 'Passwords do not match' });
-        // }
-
-        // // 🔹 Check if email already exists in DB
-        // const EmailExist = await User.findOne({ Email });
-        // if (EmailExist) {
-        //     return res.status(400).json({ success: false, error: 'Email already registered' });
-        // }
-
-        // // 🔹 Check if username already exists in DB
-        // const userExist = await User.findOne({ Username });
-        // if (userExist) {
-        //     return res.status(400).json({ success: false, error: 'Username already taken' });
-        // }
-
-        // if (Password.length < 6) {
-        //     return res.status(400).json({ success: false, error: 'Password must be at least 6 characters long' });
-        // }
-
-        // if (Password.length > 12) {
-        //     return res.status(400).json({ success: false, error: `Password can't be more than 12 characters long` });
-        // }
-
-//         // 🔹 Hash password
-//         const salt = await bcrypt.genSalt(10);
-//         const hashedPassword = await bcrypt.hash(Password, salt);
-
-//         // 🔹 Create new user
-//         const newUser = new User({
-//             id: Userid,
-//             Firstname,
-//             Lastname,
-//             Username,
-//             Email,
-//             Password: hashedPassword,
-//             TTime
-//         });
-
-//         await newUser.save();
-
-//         // 🔹 Return the created user (without password)
-//         res.status(201).json({
-//             message: 'User registered successfully',
-//             user: {
-//                 id: newUser.id,
-//                 Firstname: newUser.Firstname,
-//                 Lastname: newUser.Lastname,
-//                 Username: newUser.Username,
-//                 Email: newUser.Email,
-//                 TTime: newUser.TTime
-//             }
-//         });
-
-//     } catch (error) {
-//         console.error('Registration error:', error);
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// });
 
 router.post('/', async (req, res, next) => {
     const session = await mongoose.startSession();
@@ -160,13 +98,7 @@ router.post('/', async (req, res, next) => {
         next(error)
     }
 })
-router.get('/:id', (req, res) => {
-  const { id } = req.params
-  const User = Users.find((p) => p.id === id)
-  res.send(User)
-  console.log(JSON.stringify(User))
-  
-})
+
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params
