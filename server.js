@@ -25,9 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+
 app.use(cors({
     origin: ['http://localhost:5173',
       'https://bigslatt998.github.io',
@@ -214,7 +212,9 @@ app.post("/reset-password", async (req, res) => {
     });
   }
 });
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 app.listen(PORT, () => {
     let time = Date.now()
     let TimeNow = new Date(time)
