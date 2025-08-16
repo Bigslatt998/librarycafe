@@ -12,7 +12,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Emailjs from 'Emailjs-com';
+import emailjs from 'emailjs-com';
 import { useState } from 'react'
 import Bookloading from '../../Loader/Bookloading';
 
@@ -229,7 +229,7 @@ const handleButtonClick = () => {
   setCodeSent(true);
   setLoading(true);
   try {
-    await Emailjs.send(
+    await emailjs.send(
       'service_l2gm8zq', 
       'template_idy1dcq', 
       {
