@@ -19,7 +19,7 @@ const Resetinfo = () => {
 const requestCode = async () => {
       setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/forgot-password", { email });
+      const res = await axios.post("https://librarycafe-csuo.onrender.com/forgot-password", { email });
       console.log(res.data.code)
       localStorage.setItem("resetEmail", email);
       setStep(2);
@@ -33,7 +33,7 @@ const requestCode = async () => {
   const handleVerifyCode = async () => {
     setLoading(true);
   try {
-    const res = await axios.post("http://localhost:3000/verify-code", { email, code });
+    const res = await axios.post("https://librarycafe-csuo.onrender.com/verify-code", { email, code });
     alert(res.data.message);
     setStep(3);
   } catch (err) {
@@ -47,7 +47,7 @@ const handleResetUsername = async () => {
   const email = localStorage.getItem("resetEmail");
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/reset-username", {
+      const res = await axios.post("https://librarycafe-csuo.onrender.com/reset-username", {
         email,
         newUsername,
       });

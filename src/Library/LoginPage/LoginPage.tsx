@@ -136,7 +136,7 @@ const SlideAnimation = ()=>{
     };
 
     try {
-      const res = await axios.get("http://localhost:3000/api/me", {
+      const res = await axios.get("https://librarycafe-csuo.onrender.com/api/me", {
         headers: { Authorization: `Bearer ${token}` }
       });
 

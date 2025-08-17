@@ -21,7 +21,7 @@ const Bookmark = () => {
 
     try {
       
-      const res = await axios.get("http://localhost:3000/api/bookmark", {
+      const res = await axios.get("https://librarycafe-csuo.onrender.com/api/bookmark", {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data?.success) {

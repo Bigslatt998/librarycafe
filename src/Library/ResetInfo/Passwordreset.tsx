@@ -13,7 +13,7 @@ const Passwordinfo = () => {
   const requestCode = async () => {
         setLoading(true);
       try {
-        const res = await axios.post("http://localhost:3000/forgot-password", { email });
+        const res = await axios.post("https://librarycafe-csuo.onrender.com/forgot-password", { email });
         console.log(res.data.code)
         localStorage.setItem("resetEmail", email);
         setStep(2);
@@ -27,7 +27,7 @@ const Passwordinfo = () => {
     const handleVerifyCode = async () => {
       setLoading(true)
     try {
-      const res = await axios.post("http://localhost:3000/verify-code", { email, code });
+      const res = await axios.post("https://librarycafe-csuo.onrender.com/verify-code", { email, code });
       console.log(res.data.message);
       setStep(3);
     } catch (err) {
@@ -42,7 +42,7 @@ const Passwordinfo = () => {
     const email = localStorage.getItem("resetEmail");
     setLoading(true)
       try {
-        await axios.post("http://localhost:3000/reset-password", {
+        await axios.post("https://librarycafe-csuo.onrender.com/reset-password", {
           email,
           newPassword,
         });

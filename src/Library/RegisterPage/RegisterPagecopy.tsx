@@ -128,7 +128,7 @@ const handleButtonClick = () => {
     else {
       setLoading(true)
         try{
-          await axios.post('http://localhost:3000/api/register', {
+          await axios.post('https://librarycafe-csuo.onrender.com/api/register', {
             Firstname: data.Firstname,
             Lastname: data.Lastname,
             Email: data.Email,
@@ -179,7 +179,7 @@ const handleButtonClick = () => {
   setLoading(true);
 
   try {
-    const res = await axios.post("http://localhost:3000/api/login", {
+    const res = await axios.post("https://librarycafe-csuo.onrender.com/api/login", {
       emailOrUsername,
       password
     });

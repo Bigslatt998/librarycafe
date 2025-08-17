@@ -27,7 +27,7 @@ const HomePage = () => {
     const handleLogout = () => {
   localStorage.removeItem("token");
   toast.success("Logged out successfully!", { theme: "dark" });
-  window.location.href = "/librarycafe/";
+  window.location.href = "/";
 };
 
   return (
