@@ -1,0 +1,167 @@
+.DailryNewsContainer{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* grid-template-rows: repeat(auto-fit, 300px); */
+  gap: 20px;
+}
+.DailryNewsContainer .Box{
+  /* width: 250px; */
+  height: fit-content;
+  border: 1px dashed rgb(121, 120, 120);
+  border-radius: 15px;
+  overflow: hidden;
+  display:flex;
+  flex-direction: column;
+}
+
+.DailyImg{
+    width: 100%;
+    height: 190px;
+}
+.DailyImg img{
+    width: 100%;
+    height: 100%;
+}
+.DailyText{
+  padding: 1rem;
+  padding-top: 0rem;
+}
+.Details{
+  height: fit-content;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+  white-space: nowrap;
+}
+
+.Headline{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 70%;
+  white-space: nowrap;
+}
+.NewsButton{
+    display: flex;
+    gap: 10px;
+}
+.DailyText button,
+.NewsButton button {
+  align-items: center;
+  appearance: none;
+  background-color: transparent;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,rgb(219, 180, 80) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 38px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+  background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+  background-position: 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+   white-space: nowrap;
+  font-family: "Poppins", sans-serif;
+}
+
+
+@-moz-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@-webkit-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@-o-keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  100% {
+    background-position: 180px;
+  }
+}
+
+.DailyText button:focus,
+.NewsButton button:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+
+.DailyText button:hover,
+.NewsButton button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+
+.DailyText button:active,
+.NewsButton button:active {
+  /* box-shadow: #D6D6E7 0 3px 7px inset; */
+  transform: translateY(2px);
+}
+
+@media (max-width: 900px){
+  .DailryNewsContainer .Box{
+    flex-direction: row;
+    height: fit-content;
+  }
+  .DailyImg{
+    width: 50%;
+        /* height: 150px; */
+
+}
+.DailyText{
+  width: 50%;
+}
+}

@@ -1,0 +1,47 @@
+.BookmarkContainer{
+    width: 100%;
+    height: fit-content;
+}
+.BookmarkContent{
+    width: fit-content;
+    height: fit-content;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.BookmarkItem{
+    width: fit-content;
+    position: relative;
+    height: fit-content;
+}
+.BookmarkItem img {
+    width: 150px;
+
+}
+.ICons{
+    color: rgb(219, 180, 80);
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    display: none;
+    gap: 30px;
+    transform: translate(-50%)
+}
+.ICons i{
+    cursor: pointer;
+}
+
+
+.BookmarkItem:hover .ICons{
+    display: flex;
+}
+.BookExpiration{
+  font-size: .7rem;
+  position: absolute;
+  bottom: -22px;
+}
+.DateXExpire{
+  font-size: .9rem;
+  line-height: .5;
+}
