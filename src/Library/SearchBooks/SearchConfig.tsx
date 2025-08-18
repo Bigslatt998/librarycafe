@@ -8,7 +8,7 @@ type Book = {
   id: number | string;
   title: string;
   authors?: { name: string }[];
-  formats?: { [key: string]: string };
+  formats: { [key: string]: string };
   summaries?: string[];
   copyright?: boolean;
   languages?: string[];
@@ -17,7 +17,7 @@ type Book = {
   download_count?: number;
   expiredAt?: string;
   dateAdded?: string;
-  _id?: string;
+  _id: string;
   cover?: string;
   source?: 'gutendex' | 'openlibrary';
 };
