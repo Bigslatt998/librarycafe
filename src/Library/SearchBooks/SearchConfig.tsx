@@ -18,6 +18,7 @@ type Book = {
   expiredAt?: string;
   dateAdded?: string;
   _id: string;
+  cover_i?: number;
   cover?: string;
   source?: 'gutendex' | 'openlibrary';
 };
@@ -179,7 +180,16 @@ const fetchBooks = useCallback(async () => {
 
   const handleRead = (book: Book) => {
     if (!book.formats) {
-      toast.warn('No readable formats for this book');
+      toast.warn('No readable formats for this book',{
+        position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+      });
       return;
     }
 
@@ -193,68 +203,29 @@ const fetchBooks = useCallback(async () => {
     const available = formatPriority.find((f) => book.formats && book.formats[f]);
     if (available) {
       window.open(book.formats![available], '_blank', 'noopener,noreferrer');
+      toast.success(`Downloading...`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
     } else {
-      toast.error('No suitable format found');
+      toast.error('No suitable format found',{
+        position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+      });
     }
   };
- 
-
-//  const handleRead = (book: Book) => {
-//   console.log('Read:', book)
-//   toast.success(`Downloading...`, {
-//           position: "top-right",
-//           autoClose: 5000,
-//           hideProgressBar: false,
-//           closeOnClick: true,
-//           pauseOnHover: true,
-//           draggable: true,
-//           progress: undefined,
-//           theme: "dark",
-//         });
-//   const formatPriority = [
-//     'application/epub+zip',
-//     'application/octet-stream',
-//     'application/rdf+xml',
-//     'text/html; charset=utf-8',
-//     'text/html',
-//     'text/plain',
-//     'text/plain; charset=utf-8',
-//     'application/pdf',
-//     'application/x-mobipocket-ebook',
-//     'image/jpeg',
-//     'text/plain; charset=us-ascii',
-
-//   ]
-
-//   const availableFormat = formatPriority.find(
-//     (format) => book.formats[format])
-//   if (availableFormat) {
-//     const Readurl = book.formats[availableFormat]
-//     if (Readurl) window.open(Readurl, '_blank', 'noopener,noreferrer')
-//   } else{
-//     toast.error(`No suitable format found for reading`, {
-//           position: "top-right",
-//           autoClose: 5000,
-//           hideProgressBar: false,
-//           closeOnClick: true,
-//           pauseOnHover: true,
-//           draggable: true,
-//           progress: undefined,
-//           theme: "dark",
-//         });
-//   }
-//   toast.warn(`Checking....`, {
-//           position: "top-right",
-//           autoClose: 5000,
-//           hideProgressBar: false,
-//           closeOnClick: true,
-//           pauseOnHover: true,
-//           draggable: true,
-//           progress: undefined,
-//           theme: "dark",
-//         });
-
-//  }
 
 useEffect(() => {
   const checkExiredBookmarks = () => {

@@ -23,7 +23,6 @@ const SearchBooks = () => {
     isMobile
   } = useSearch()
 
-  // ✅ Detect screen size
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 500)
     window.addEventListener('resize', handleResize)
@@ -57,16 +56,15 @@ const SearchBooks = () => {
       <div className='galleryContainer'>
         
         {loading ? (
-          <p>Loading...</p>
+          <p>Please wait a librarian is searching for your books...</p>
         ) : books.length === 0 ? (
-          <p>Hey chef your Library shelf is empty</p>
+          <p>Hey chief your library shelf is empty</p>
         ) : (
           <>
             {books.map((book) => {
-              // ✅ Cover handling for both Gutendex & OpenLibrary
               const cover =
                 book.formats?.['image/jpeg'] || // Gutendex
-                book.cover ||                   // OpenLibrary (we’ll set this in fetchBooks)
+                book.cover ||                   // OpenLibrary
                 "https://via.placeholder.com/150x220?text=No+Cover"
 
               return (

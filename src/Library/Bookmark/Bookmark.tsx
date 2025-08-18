@@ -37,6 +37,12 @@ const Bookmark = () => {
   fetchBookmarks();
 }, [setBookmark]);
 
+const getCover = (bookmark: any) => {
+    return bookmark.formats?.['image/jpeg'] ||
+      bookmark.cover ? `https://covers.openlibrary.org/b/id/${bookmark.cover}-M.jpg` :
+      'https://via.placeholder.com/150x200?text=No+Cover'
+  }
+
   return (
     <div className="BookmarkContainer">
       Bookmarks
@@ -45,7 +51,7 @@ const Bookmark = () => {
         <div className="BookmarkContent">
           {Bookmark.map((bookmark) => (
           <div className="BookmarkItem" key={bookmark._id}>
-            <img src={bookmark.formats['image/jpeg']} alt={bookmark.title} width='100%' height='100%' />
+            <img src={getCover(bookmark)} alt={bookmark.title} width='100%' height='100%' />
             {bookmark.expiredAt && (
               <p className="BookExpiration">
                 {bookmark.expiredAt > Date.now().toLocaleString() ? 
