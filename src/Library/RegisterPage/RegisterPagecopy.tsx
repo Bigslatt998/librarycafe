@@ -340,8 +340,8 @@ const resendCode = async () => {
                 </div>
 
                   <div className="forget">
-                    <p>Forget your  <a href='/librarycafe/username-reset-page'>Username?</a></p>
-                    <p>Forget your <a href='/librarycafe/password-reset-page'>Password?</a></p>
+                    <p>Forget your  <a href='/username-reset-page'>Username?</a></p>
+                    <p>Forget your <a href='/password-reset-page'>Password?</a></p>
                   </div>
                 <button onClick={handleLogin} >Login</button>
                   </form>
@@ -439,7 +439,7 @@ const resendCode = async () => {
                   <button className='ghost'  onClick={handleRegisterClick} >Register</button>
                 </div>
                 <div className="overlapPanel overlayRight">
-                 <h1 className='tittle'>Hello, Chef</h1>
+                 <h1 className='tittle'>Hello, Chief</h1>
                   <p>You have an accont already? Login to <span style={{color: 'rgb(219, 180, 80)', textTransform: 'uppercase'}}><i>Library cafe</i></span> to start reading.</p>
                   <button className='ghost' id='login' onClick={handleLoginClick}>Login</button>
                 </div>

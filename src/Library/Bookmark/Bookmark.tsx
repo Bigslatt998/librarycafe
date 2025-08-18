@@ -1,7 +1,7 @@
 import './Bookmark.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBookOpenReader, faEye, faTrash } from "@fortawesome/free-solid-svg-icons"
-import { useSearch } from '../../Library/SearchBooks/SearchConfig.tsx'
+import { useSearch } from '../SearchBooks/SearchConfig.tsx'
 import {useEffect} from 'react'
 import axios from 'axios'
 import Bookloading from '../../Loader/Bookloading';

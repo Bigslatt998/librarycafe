@@ -1,24 +1,26 @@
-import { createContext, useContext, useState, useEffect, useRef  } from 'react'
+import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'
 import type {ReactNode } from 'react'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 // import Bookmark from '../../Schema/BookmarkScheme.js'
 type Book = {
-  id: number
-  title: string
-  authors: { name: string }[]
-  formats: { [key: string]: string }
-  summaries: string[]
-  copyright: boolean
-  languages: string[]
-  subjects?: string[]
-  bookshelves?: string[]
-  download_count?: number
-  expiredAt?: string
-  dateAdded?: string
-  _id: string // For MongoDB ObjectId
-}
+  id: number | string;
+  title: string;
+  authors?: { name: string }[];
+  formats?: { [key: string]: string };
+  summaries?: string[];
+  copyright?: boolean;
+  languages?: string[];
+  subjects?: string[];
+  bookshelves?: string[];
+  download_count?: number;
+  expiredAt?: string;
+  dateAdded?: string;
+  _id?: string;
+  cover?: string;
+  source?: 'gutendex' | 'openlibrary';
+};
 
 type SearchContextType = {
   books: Book[]
@@ -72,27 +74,76 @@ const [loading, setLoading] = useState<boolean>(false)
 const [isPreviewOpened, setIspreviewOpened] = useState<boolean>(false)
 
 
-const fetchBooks = async () => {
-     setLoading(true)
-  try{
-   let url = `https://gutendex.com/books?search=${searchTerm}&page=${page}&page_size=${isMobile ? 13 : 26}`
-   if (filterType !== 'Filter' && filterValue) {
-      if (filterType === 'Author name') url += `&author=${filterValue}`
-      if (filterType === 'Year of release') url += `&release_year=${filterValue}`
-      if (filterType === 'ISBN') url += `&isbn=${filterValue}`
+const fetchBooks = useCallback(async () => {
+    setLoading(true);
+
+    try {
+      const pageSize = isMobile ? 13 : 26;
+
+      // If filter applied → search OpenLibrary only
+      if (filterType !== 'Filter' && filterValue) {
+        let query = '';
+        if (filterType === 'Author name') query = `author=${filterValue}`;
+        if (filterType === 'Year of release') query = `first_publish_year=${filterValue}`;
+        if (filterType === 'ISBN') query = `isbn=${filterValue}`;
+
+        const url = `https://openlibrary.org/search.json?${query}&page=${page}&limit=${pageSize}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`OpenLibrary fetch failed: ${res.status}`);
+        const data = await res.json();
+
+        const mappedBooks: Book[] = data.docs.map((doc: any, idx: number) => ({
+          id: doc.key || idx,
+          title: doc.title,
+          authors: doc.author_name ? doc.author_name.map((a: string) => ({ name: a })) : [],
+          formats: {},
+          cover: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg` : undefined,
+          source: 'openlibrary',
+        }));
+
+        setBooks(mappedBooks);
+        return;
+      }
+
+      // No filters → fetch both Gutendex + OpenLibrary
+      const gutendexUrl = `https://gutendex.com/books?search=${searchTerm}&page=${page}&page_size=${pageSize}`;
+      const openLibUrl = `https://openlibrary.org/search.json?q=${searchTerm || 'book'}&page=${page}&limit=${pageSize}`;
+
+      const [gutendexRes, openLibRes] = await Promise.all([fetch(gutendexUrl), fetch(openLibUrl)]);
+      if (!gutendexRes.ok || !openLibRes.ok) throw new Error('Failed fetching APIs');
+
+      const gutendexData = await gutendexRes.json();
+      const openLibData = await openLibRes.json();
+
+      const gutendexBooks: Book[] = gutendexData.results.map((b: any) => ({
+        id: b.id,
+        title: b.title,
+        authors: b.authors,
+        formats: b.formats,
+        cover: b.formats['image/jpeg'],
+        source: 'gutendex',
+      }));
+
+      const openLibBooks: Book[] = openLibData.docs.map((doc: any, idx: number) => ({
+        id: doc.key || `ol-${idx}`,
+        title: doc.title,
+        authors: doc.author_name ? doc.author_name.map((a: string) => ({ name: a })) : [],
+        formats: {},
+        cover: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg` : undefined,
+        source: 'openlibrary',
+      }));
+
+      // Shuffle merge both
+      const merged = [...gutendexBooks, ...openLibBooks].sort(() => Math.random() - 0.5);
+
+      setBooks(merged);
+    } catch (err) {
+      console.error(err);
+      setBooks([]);
+    } finally {
+      setLoading(false);
     }
-    const res = await fetch(url)
-    if (!res.ok) throw new Error(`Failed to fetch books ${res.status}`)
-    const data = await res.json()
-    setBooks(data.results)
-    console.log( 'Fetched Books:', data.results)
-  } catch (err) {
-    console.log(err instanceof Error ? err.message : 'Failed to fetch books')
-    setBooks([])
-  } finally {
-    setLoading(false)
-  }
-}
+  }, [searchTerm, filterType, filterValue, page, isMobile]);
 
  
 
@@ -126,64 +177,84 @@ const fetchBooks = async () => {
     setIspreviewOpened(true)
   }
 
+  const handleRead = (book: Book) => {
+    if (!book.formats) {
+      toast.warn('No readable formats for this book');
+      return;
+    }
+
+    const formatPriority = [
+      'application/epub+zip',
+      'application/pdf',
+      'text/plain',
+      'text/html',
+    ];
+
+    const available = formatPriority.find((f) => book.formats && book.formats[f]);
+    if (available) {
+      window.open(book.formats![available], '_blank', 'noopener,noreferrer');
+    } else {
+      toast.error('No suitable format found');
+    }
+  };
  
 
- const handleRead = (book: Book) => {
-  console.log('Read:', book)
-  toast.success(`Downloading...`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-  const formatPriority = [
-    'application/epub+zip',
-    'application/octet-stream',
-    'application/rdf+xml',
-    'text/html; charset=utf-8',
-    'text/html',
-    'text/plain',
-    'text/plain; charset=utf-8',
-    'application/pdf',
-    'application/x-mobipocket-ebook',
-    'image/jpeg',
-    'text/plain; charset=us-ascii',
+//  const handleRead = (book: Book) => {
+//   console.log('Read:', book)
+//   toast.success(`Downloading...`, {
+//           position: "top-right",
+//           autoClose: 5000,
+//           hideProgressBar: false,
+//           closeOnClick: true,
+//           pauseOnHover: true,
+//           draggable: true,
+//           progress: undefined,
+//           theme: "dark",
+//         });
+//   const formatPriority = [
+//     'application/epub+zip',
+//     'application/octet-stream',
+//     'application/rdf+xml',
+//     'text/html; charset=utf-8',
+//     'text/html',
+//     'text/plain',
+//     'text/plain; charset=utf-8',
+//     'application/pdf',
+//     'application/x-mobipocket-ebook',
+//     'image/jpeg',
+//     'text/plain; charset=us-ascii',
 
-  ]
+//   ]
 
-  const availableFormat = formatPriority.find(
-    (format) => book.formats[format])
-  if (availableFormat) {
-    const Readurl = book.formats[availableFormat]
-    if (Readurl) window.open(Readurl, '_blank', 'noopener,noreferrer')
-  } else{
-    toast.error(`No suitable format found for reading`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-  }
-  toast.warn(`Checking....`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+//   const availableFormat = formatPriority.find(
+//     (format) => book.formats[format])
+//   if (availableFormat) {
+//     const Readurl = book.formats[availableFormat]
+//     if (Readurl) window.open(Readurl, '_blank', 'noopener,noreferrer')
+//   } else{
+//     toast.error(`No suitable format found for reading`, {
+//           position: "top-right",
+//           autoClose: 5000,
+//           hideProgressBar: false,
+//           closeOnClick: true,
+//           pauseOnHover: true,
+//           draggable: true,
+//           progress: undefined,
+//           theme: "dark",
+//         });
+//   }
+//   toast.warn(`Checking....`, {
+//           position: "top-right",
+//           autoClose: 5000,
+//           hideProgressBar: false,
+//           closeOnClick: true,
+//           pauseOnHover: true,
+//           draggable: true,
+//           progress: undefined,
+//           theme: "dark",
+//         });
 
- }
+//  }
 
 useEffect(() => {
   const checkExiredBookmarks = () => {
@@ -225,7 +296,7 @@ useEffect(() => {
   setLoading(true)
   try {
     const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
-    const res = await axios.post("http://localhost:3000/api/bookmark", {
+    const res = await axios.post("https://librarycafe-csuo.onrender.com/api/bookmark", {
       title: book.title,
       formats: book.formats,
       expiresAt
@@ -284,7 +355,7 @@ useEffect(() => {
   }
   setLoading(true)
   try {
-    await axios.delete(`http://localhost:3000/api/bookmark/${id}`, {
+    await axios.delete(`https://librarycafe-csuo.onrender.com/api/bookmark/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setBookmark(prev => prev.filter(b => b._id !== id));

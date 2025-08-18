@@ -1,6 +1,6 @@
 import './DailyNews.css'
 import { useEffect, useState } from 'react'
-import Bookloading from '../../Loader/Bookloading';
+import Bookloading from '../../Loader/Bookloading'
 
 type NewsItem = {
   title: string
@@ -12,9 +12,7 @@ type NewsItem = {
   content?: string
 }
 
-const API_KEY = 'fa0b168a4ee848849467c54975ba3252'
-
- const categories = [
+const categories = [
   'business',
   'sports',
   'technology',
@@ -23,82 +21,62 @@ const API_KEY = 'fa0b168a4ee848849467c54975ba3252'
   'science',
   'general'
 ]
-const DailyNews = () => {
-   
 
- const [news, setNews] = useState<NewsItem[]>([])
+const DailyNews = () => {
+  const [news, setNews] = useState<NewsItem[]>([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
-const fetchNews = async (pageNum: number) => {
-  setLoading(true);
-  try {
-    const promises = categories.map(cat => {
-      const url = new URL('https://newsapi.org/v2/top-headlines');
-      url.searchParams.append('category', cat);
-      url.searchParams.append('language', 'en');
-      url.searchParams.append('pageSize', '1');
-      url.searchParams.append('page', pageNum.toString());
-      url.searchParams.append('apiKey', API_KEY);
+  const fetchNews = async (pageNum: number) => {
+    setLoading(true)
+    try {
+      const promises = categories.map(cat => {
+        const url = new URL("https://librarycafe-csuo.onrender.com/api/news")
+        url.searchParams.append("category", cat)
+        url.searchParams.append("page", pageNum.toString())
+        url.searchParams.append("pageSize", "1")
 
-      return fetch(url.toString())
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(`Failed to fetch ${cat}: ${res.status}`);
-          }
-          return res.json();
-        })
-        .then(data => {
-          console.log(cat, data);
-          return data;
-        })
-        .catch(err => {
-          console.error(`Error fetching ${cat}:`, err, err);
-          return { articles: [] }; 
-        });
-        
-    });
+        return fetch(url.toString())
+          .then(res => res.json())
+          .then(data => data.articles || [])
+      })
 
-    const results = await Promise.all(promises);
-    const articles = results
-      .flatMap(r => r.articles || []) 
-      .filter(article => article) as NewsItem[]; 
-    
-    setNews(articles);
-  } catch (err) {
-    console.error('Error in fetchNews:', err);
-    setNews([]);
-  } finally {
-    setLoading(false);
+      const results = await Promise.all(promises)
+      const articles = results.flat() as NewsItem[]
+      setNews(articles)
+    } catch (err) {
+      console.error("Error in fetchNews:", err)
+      setNews([])
+    } finally {
+      setLoading(false)
+    }
   }
-};
 
   useEffect(() => {
     fetchNews(page)
   }, [page])
 
   const handleReadMore = (item: NewsItem) => {
-    console.log('Read more:', item)
-    window.open(item.url, '_blank')
+    window.open(item.url, "_blank")
   }
 
   const trimDescription = (desc?: string) =>
-    desc ? desc.split(' ').slice(0, 30).join(' ') + '...' : ''
+    desc ? desc.split(" ").slice(0, 30).join(" ") + "..." : ""
+
   return (
     <div>
       <p className="SectionHead">News Section</p>
-        <div className="DailryNewsContainer">
-          
-         {loading && <div>Loading news...</div>}
+      <div className="DailryNewsContainer">
+        {loading && <div>Loading news...</div>}
         {news.map((item, idx) => (
-          <div className='Box Box1' key={idx}>
+          <div className="Box Box1" key={idx}>
             <div className="DailyImg">
-              <img src={item.urlToImage || 'Loading....'} alt='' />
+              <img src={item.urlToImage || 'https://via.placeholder.com/150'} alt='' />
             </div>
             <div className="DailyText">
               <p>{item.source.name}</p>
-              <p className='Headline'>{item.title}</p>
-              <p className='Details'>{trimDescription(item.description)}</p>
+              <p className="Headline">{item.title}</p>
+              <p className="Details">{trimDescription(item.description)}</p>
               <button onClick={() => handleReadMore(item)}>Read more</button>
             </div>
           </div>
@@ -108,9 +86,7 @@ const fetchNews = async (pageNum: number) => {
           <button onClick={() => setPage(page + 1)}>Next</button>
         </div>
       </div>
-          {loading &&(
-          <Bookloading/>
-          )}
+      {loading && <Bookloading />}
     </div>
   )
 }

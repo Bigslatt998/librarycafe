@@ -3,11 +3,11 @@ import './LoginPage.css'
 import gsap from 'gsap'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBookmark, faBookOpenReader, faEye, faAngleDoubleLeft, faAngleDoubleRight, faMagnifyingGlass  } from "@fortawesome/free-solid-svg-icons"
-import SearchBooks from '../../Library/SearchBooks/SearchBooks.tsx'
+import SearchBooks from '../SearchBooks/SearchBooks.tsx'
 import WeatherSection from '../../Library/WeatherSection/WeatherSection.tsx'
 import DailyNews from '../DailyNews/DailyNews.tsx'
 import axios from "axios";
-import { useSearch } from '../../Library/SearchBooks/SearchConfig.tsx'
+import { useSearch } from '../SearchBooks/SearchConfig.tsx'
 const getIndex = (current: number, offset: number, length: number) => {
   return (current + offset + length) % length
 }
@@ -155,7 +155,7 @@ const SlideAnimation = ()=>{
   return (
     <div className="SeachContainer">
       <div className="WelcomBack">
-        <p>Welcome Back, {username}!</p>
+        <p>Welcome Back, <span style={{color: 'rgb(219, 180, 80)'}}>{username}!</span></p>
         </div>
       <div className="search">
         

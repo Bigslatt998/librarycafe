@@ -54,6 +54,11 @@
           animation: paging 1s linear infinite;
         }
 
+        .HomeSearch{
+          display: flex;
+          place-self: start;
+        }
+
 
         @keyframes paging {
           to {

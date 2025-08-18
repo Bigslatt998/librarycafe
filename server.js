@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: ['http://localhost:5173',
+      'http://172.20.10.3:5173',
       'https://bigslatt998.github.io',
       'https://bigslatt998.github.io/librarycafe',
       'https://librarycafe-api.onrender.com',
@@ -233,6 +234,30 @@ app.post("/reset-password", async (req, res) => {
 // app.get('/^\/(?!api).*/', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 // });
+const API_KEY = 'fa0b168a4ee848849467c54975ba3252'
+
+app.get("/api/news", async (req, res) => {
+  try {
+    const { category = "general", page = 1, pageSize = 10 } = req.query;
+
+    const url = new URL("https://newsapi.org/v2/top-headlines");
+    url.searchParams.append("category", category);
+    url.searchParams.append("language", "en");
+    url.searchParams.append("page", page);
+    url.searchParams.append("pageSize", pageSize);
+    url.searchParams.append("apiKey", API_KEY);
+
+    const response = await fetch(url.toString());
+    const data = await response.json();
+
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    res.status(500).json({ message: "Failed to fetch news" });
+  }
+});
+
+
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
