@@ -29,7 +29,9 @@
 .NewBookText{
     position: absolute;
     gap: 10px;
-    place-self: center;
+    /* place-self: center; */
+    left: 50%;
+    transform: translate(-50%);
     bottom: 10px;
     display: none;
     cursor: pointer;

@@ -22,6 +22,20 @@
 input{
   outline: none;
   /* border */
+  color: white;
+  caret-color: white;
+}
+input[type='search']{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+input[type='search']::-webkit-search-cancle-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration,
+input[type='search']::-webkit-search-decoration{
+  -webkit-appearance: none;
+  appearance: none;
 }
 body {
   margin: 0;

@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   Email: { type: String, required: true, unique: true },
   Username: { type: String, required: true, unique: true },
   Password: { type: String, required: true },
-  verificationCode: { type: String }, // store as string to keep leading zeros
+  verificationCode: { type: String },
   verificationCodeExpiry: { type: Date }
 }, { timestamps: true });
 

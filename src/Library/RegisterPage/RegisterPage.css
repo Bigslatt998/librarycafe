@@ -245,9 +245,37 @@ form{
   line-height: .5;
   margin-top: 30px;
   /* place-self: ; */
+  color: rgba(190, 189, 189, 0.493);
+  animation: Open 2.5s infinite;
 }
 .Clickup i{
   font-size: 1.5rem;
+}
+
+.Clickup i:nth-child(1){
+  animation-delay: .5s;
+}
+
+.Clickup i:nth-child(2){
+    animation-delay: 1s;
+
+}
+@keyframes Open{
+  0%{
+    opacity: 0;
+    transform: translateY(30px);
+  }
+   50%{
+    opacity: .3;
+
+   }
+   75%{
+    opacity: .6;
+
+   }
+   100%{
+    opacity: 1;
+   }
 }
 
 form button,
@@ -361,10 +389,17 @@ form button:active,
 .Error{
   color: rgba(245, 5, 5, 0.842);
 }
+.Verification{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .Verification input{
   border: .1px dashed #535353;
   width: 150px;
 
+}
+.hash{
+  color: rgba(240, 29, 29, 0.733);
 }
 @media (max-width: 1200px){
 .RegisterPage.right-panel-active .Registraform {

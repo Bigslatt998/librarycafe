@@ -3,10 +3,8 @@ const router = express.Router()
 import { v4 as uuidv4 } from 'uuid';
 import auth from '../Auth/Auth.js'
 import Bookmark from '../Schema/BookmarkScheme.js'
-// let bookmarks = []
 
 
-// Get current user's bookmarks
 router.get("/", auth, async (req, res) => {
   try {
     const userId = req.userId;
@@ -27,8 +25,7 @@ router.post("/", auth, async (req, res) => {
     if (!title) return res.status(400).json({ success: false, error: "Title is required" });
 
     const expires = expiredAt ? new Date(expiredAt) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-
-    // Prevent duplicates for the same user by title
+      
     const exists = await Bookmark.findOne({ title, userId });
     if (exists) return res.status(400).json({ success: false, error: "Bookmark already exists" });
     const bookmark = await Bookmark.create({

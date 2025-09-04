@@ -295,7 +295,7 @@ const resendCode = async () => {
 }
   return (
      <div className="RegisterPageContainer">
-      <div onClick={handleButtonClick} className="Welcome" ref={WelcomeContainerRef}>
+      <div onClick={handleButtonClick} className="Welcome" title='Click' ref={WelcomeContainerRef}>
                 <img src={Librarycafe}/>
 
           <div className="Clickup"  title='Welcome'>
@@ -323,14 +323,14 @@ const resendCode = async () => {
               <div className="Loginform formContainer">
                 <form>
                   <div className="Username">
-                    <label htmlFor='LUsername'>Username or Email*</label>
+                    <label htmlFor='LUsername'>Username or Email<span className='hash'>*</span></label>
                       <input id='LUsername' type='text' placeholder="Email or Username"
                         value={emailOrUsername}
                         onChange={(e) => setEmailOrUsername(e.target.value)} />
                 </div>
                
               <div className="Password">
-                  <label htmlFor='LPassword'>Password*</label>
+                  <label htmlFor='LPassword'>Password<span className='hash'>*</span></label>
                     <div className="PasswordXeye">
                     <input id='LPassword' type={LshowPassword ? 'text' : 'password'}  placeholder="Password"
                       value={password}
@@ -351,7 +351,7 @@ const resendCode = async () => {
               <form onSubmit={handleSubmit(RegSubmit)}>
 
                 <div className="Firstname">
-                  <label htmlFor='Firstname'>First Name*</label>
+                  <label htmlFor='Firstname'>First Name<span className='hash'>*</span></label>
                   <input id='Firstname' type='text' placeholder='Enter your Firstname' required 
                   {...register('Firstname')}/>
                   {errors.Firstname && 
@@ -359,7 +359,7 @@ const resendCode = async () => {
                 </div>
 
                   <div className="Lastname">
-                  <label htmlFor='Lastname'>Last Name*</label>
+                  <label htmlFor='Lastname'>Last Name<span className='hash'>*</span></label>
                   <input id='Lastname' type='text' placeholder='Enter your last name' required 
                   {...register('Lastname')}/>
                   {errors.Lastname && 
@@ -367,7 +367,7 @@ const resendCode = async () => {
                   </div>
 
                   <div className="Username">
-                  <label htmlFor='Email'>Email*</label>
+                  <label htmlFor='Email'>Email<span className='hash'>*</span></label>
                   <input id='Email' type='email' placeholder='example@gmail.com' required 
                   {...register('Email')}/>
                   {errors.Email && 
@@ -376,7 +376,7 @@ const resendCode = async () => {
 
 
                   <div className="Username">
-                  <label htmlFor='Username'>Username*</label>
+                  <label htmlFor='Username'>Username<span className='hash'>*</span></label>
                   <input id='Username' type='text' placeholder='Enter your Username' 
                   {...register('Username')}/>
                   {errors.Username && 
@@ -384,7 +384,7 @@ const resendCode = async () => {
                   </div>
     
                   <div className="Password">
-                  <label htmlFor='Password'>Password*</label>
+                  <label htmlFor='Password'>Password<span className='hash'>*</span></label>
                     <div className="PasswordXeye">
                       <input id='Password' type={showPassword ? 'text' : 'password'} placeholder='Create Password' 
                       {...register('Password')}/>
@@ -395,7 +395,7 @@ const resendCode = async () => {
                   </div>
 
                     <div className="Password">
-                  <label htmlFor='ConfirmPassword'>Confirm Password*</label>
+                  <label htmlFor='ConfirmPassword'>Confirm Password<span className='hash'>*</span> </label>
                     <div className="PasswordXeye">
                       <input id='ConfirmPassword' type={showPassword ? 'text' : 'password'} placeholder='Confirm Password' 
                       {...register('ConfirmPassword')}/>
@@ -434,7 +434,7 @@ const resendCode = async () => {
                 <div className="overlapPanel overlayLeft">
                   
 
-                   <h1 className='tittle'>Start reading now, Chef</h1>
+                   <h1 className='tittle'>Start reading now, Chief</h1>
                   <p>You don't have an account yet? Join <span style={{color: 'rgb(219, 180, 80)', textTransform: 'uppercase'}}><i>Library cafe</i></span> to start your journey today.</p>
                   <button className='ghost'  onClick={handleRegisterClick} >Register</button>
                 </div>

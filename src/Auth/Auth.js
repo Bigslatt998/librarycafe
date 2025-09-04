@@ -10,10 +10,9 @@ export default (req, res, next) => {
       return res.status(401).json({ success: false, error: "Token malformatted" });
     }
 
-    const secret = 'ezFdYUp5A05KuUXtCab9f4Mf6hUBl8PmxPaUwiVVF3B7eqYayhsHSTTkVms0BXSy';
-    const decoded = jwt.verify(token, secret);
+    const TokenKey = 'ezFdYUp5A05KuUXtCab9f4Mf6hUBl8PmxPaUwiVVF3B7eqYayhsHSTTkVms0BXSy';
+    const decoded = jwt.verify(token, TokenKey);
 
-    // support tokens shaped as { userId }, { id }, or { _id }
     req.userId = decoded.userId || decoded.id || decoded._id;
     if (!req.userId) return res.status(401).json({ success: false, error: "Invalid token payload" });
 

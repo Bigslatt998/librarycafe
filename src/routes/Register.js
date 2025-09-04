@@ -17,7 +17,6 @@ router.post("/", async (req, res, next) => {
         const { Firstname, Lastname, Username, Email, Password, ConfirmPassword } = req.body;
         const TTime = new Date().toLocaleString();
 
-        // Validation
         if (!Firstname || !Lastname || !Username || !Email || !Password || !ConfirmPassword) {
             return res.status(400).send('All fields are required');
         }
@@ -26,13 +25,11 @@ router.post("/", async (req, res, next) => {
             return res.status(400).json({ success: false, error: 'Passwords do not match' });
         }
 
-        // Check if email already exists in DB
         const EmailExist = await User.findOne({ Email });
         if (EmailExist) {
             return res.status(400).json({ success: false, error: 'Email already registered' });
         }
 
-        //  Check if username already exists in DB
         const userExist = await User.findOne({ Username});
         if (userExist) {
             return res.status(400).json({ success: false, error: 'Username already taken' });

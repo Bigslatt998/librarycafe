@@ -256,12 +256,28 @@ useEffect(() => {
   const handleBookmark = async (book: Book) => {
   const token = localStorage.getItem("token");
   if (!token) {
-    toast.warn("Please login to add", { theme: "dark" });
+    toast.warn("Please login to add", { 
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark", });
     return;
   }
   const existing = Bookmark.find(b => b.title === book.title);
   if(existing){
-    alert('Already in bookmark')
+    toast.error("Already in bookmark", { 
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark", });
   }
 
   setLoading(true)
@@ -330,7 +346,8 @@ useEffect(() => {
       headers: { Authorization: `Bearer ${token}` }
     });
     setBookmark(prev => prev.filter(b => b._id !== id));
-    toast.success("Book removed from bookmark!", {        position: "top-right",
+    toast.success("Book removed from bookmark!", {        
+      position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,

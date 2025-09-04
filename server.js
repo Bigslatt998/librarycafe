@@ -163,7 +163,7 @@ app.post("/reset-username", async (req, res) => {
         message: "Email and new username are required",
       });
     }
-
+     // Find user
     const user = await User.findOne({ Email: email.trim() });
     if (!user) {
       return res.status(404).json({
@@ -173,6 +173,8 @@ app.post("/reset-username", async (req, res) => {
     }
 
     user.Username = newUsername.trim();
+
+  // Clear Code
     user.verificationCode = undefined;
     user.verificationCodeExpiry = undefined;
     await user.save();
@@ -189,7 +191,7 @@ app.post("/reset-username", async (req, res) => {
     });
   }
 });
-
+// Reset password
 app.post("/reset-password", async (req, res) => {
   try {
     const { email, newPassword } = req.body;
@@ -200,7 +202,7 @@ app.post("/reset-password", async (req, res) => {
         message: "Email and new password are required",
       });
     }
-
+    // Find user
     const user = await User.findOne({ Email: email.trim() });
     if (!user) {
       return res.status(404).json({
@@ -231,9 +233,7 @@ app.post("/reset-password", async (req, res) => {
     });
   }
 });
-// app.get('/^\/(?!api).*/', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-// });
+
 const API_KEY = 'fa0b168a4ee848849467c54975ba3252'
 
 app.get("/api/news", async (req, res) => {

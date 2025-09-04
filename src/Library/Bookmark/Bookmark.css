@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 .BookmarkContainer{
     width: 100%;
     height: fit-content;
+}
+
+.BookmartText{
+  font-family: "MedievalSharp", cursive;
+  font-weight: 200;
+  font-style: normal;
+  font-style: italic;
+  text-transform: uppercase;
 }
 .BookmarkContent{
     width: fit-content;
@@ -42,6 +51,6 @@
   bottom: -22px;
 }
 .DateXExpire{
-  font-size: .9rem;
+  font-size: .7rem;
   line-height: .5;
 }

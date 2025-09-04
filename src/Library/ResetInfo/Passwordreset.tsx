@@ -27,7 +27,10 @@ const Passwordinfo = () => {
     const handleVerifyCode = async () => {
       setLoading(true)
     try {
-      const res = await axios.post("https://librarycafe-csuo.onrender.com/verify-code", { email, code });
+      const res = await axios.post("https://librarycafe-csuo.onrender.com/verify-code", 
+        { email, 
+          code 
+        });
       console.log(res.data.message);
       setStep(3);
     } catch (err) {

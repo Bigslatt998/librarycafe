@@ -24,6 +24,9 @@ const HomePage = () => {
       document.body.style.overflow = 'auto'
     }
   })
+  // useEffect(()=>{
+  //   localStorage.re
+  // })
     const handleLogout = () => {
   localStorage.removeItem("token");
   toast.success("Logged out successfully!", { theme: "dark" });
@@ -45,7 +48,7 @@ const HomePage = () => {
 
               <li className={`${CurrentPage === 'Bookmark' ? 'active' : ''}`} onClick={() => setCurrentPage("Bookmark")}><NavLink to='Bookmark'>Bookmark</NavLink></li>
 
-              <li className={`${CurrentPage === 'News' ? 'active' : ''}`} onClick={() => setCurrentPage("News")}>News</li>
+              {/* <li className={`${CurrentPage === 'News' ? 'active' : ''}`} onClick={() => setCurrentPage("News")}>News</li> */}
             </ul>
           </nav>    
           
