@@ -38,7 +38,6 @@ router.post("/", async (req, res, next) => {
       'ezFdYUp5A05KuUXtCab9f4Mf6hUBl8PmxPaUwiVVF3B7eqYayhsHSTTkVms0BXSy',
       { expiresIn: '1h' }
     );
-
     res.status(200).json({
       success: true,
       message: 'Login successful',
